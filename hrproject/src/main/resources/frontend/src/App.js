@@ -22,8 +22,8 @@ const UserProfiles = () => {
       
               <tbody>
                 <tr>
-                  <td>{UserProfile[0]}</td>
-                  <td>{UserProfile[1]}</td>   
+                  <td>{UserProfile.name}</td>
+                  <td>{UserProfile.email}</td>   
                 </tr>
               </tbody>
            

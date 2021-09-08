@@ -1,6 +1,9 @@
 package com.hr.hrproject.Controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hr.hrproject.Models.Employee;
 import com.hr.hrproject.Service.MainService;
 
 @RestController
@@ -40,14 +44,20 @@ public class MainController {
 	}
 	
 	@GetMapping("/getAll")
-	public ArrayList<String[]> getAllUsers (HttpServletRequest request,ModelMap model) {
+	public List<Employee> getAllUsers (HttpServletRequest request,ModelMap model) {
 	    ModelAndView modelAndView = new ModelAndView();
 	    String username = request.getParameter("username"); 
 	    String email = request.getParameter("email");
 	    ArrayList<String[]> a1 = new ArrayList<String[]>();
 	    a1 = mainService.getAllUsers();
-	    model.addAttribute("users", a1);
-	    modelAndView.setViewName("index");
-	    return  a1;
+	    List<Employee> e1 = new LinkedList<Employee>();
+	    for (Iterator iterator = a1.iterator(); iterator.hasNext();) {
+			String[] strings = (String[]) iterator.next();
+			Employee e = new Employee();
+			e.setName(strings[0]);
+			e.setEmail(strings[1]);
+			e1.add(e);
+		}    
+	    return  e1;
 	}
 }
